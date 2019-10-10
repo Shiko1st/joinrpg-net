@@ -46,6 +46,15 @@ namespace JoinRpg.Web.Models
         }
     }
 
+    public interface IPaymentViewModel
+    {
+        int ClaimId { get; set; }
+
+        int Money { get; set; }
+
+        DateTime OperationDate { get; set; }
+    }
+
     public class PaymentViewModelBase : FinanceViewModelBase
     {
         [Display(Name = "Внесено денег"), Required]
@@ -203,7 +212,50 @@ namespace JoinRpg.Web.Models
                 .ToArray();
         }
     }
-    
+
+    public interface IRefundPaymentViewModel : IPaymentViewModel
+    {
+        int PaymentTypeId { get; set; }
+    }
+
+    public class RefundPaymentViewModel : IRefundPaymentViewModel, IAddCommentBaseViewModel
+    {
+        /// <inheritdoc />
+        public int ClaimId { get; set; }
+
+        /// <inheritdoc />
+        public DateTime OperationDate { get; set; }
+
+        /// <inheritdoc />
+        public int ProjectId { get; set; }
+
+        /// <inheritdoc />
+        public int CommentDiscussionId { get; set; }
+
+        /// <inheritdoc />
+        [Required]
+        [Range(1, 100000, ErrorMessage = "Сумма возврата должна быть от 1 до 100000")]
+        [DisplayName("Сумма к возврату")]
+        public int Money { get; set; }
+
+        /// <inheritdoc />
+        [Required]
+        [DisplayName("Способ возврата")]
+        public int PaymentTypeId { get; set; }
+
+        /// <inheritdoc />
+        [Required(ErrorMessage = "Необходимо описать причину возврата")]
+        [DisplayName("Причина возврата")]
+        [Description("Укажите причину возврата")]
+        public string CommentText { get; set; }
+
+        /// <summary>
+        /// List of payment types
+        /// </summary>
+        public IReadOnlyCollection<PaymentTypeViewModel> PaymentTypes { get; set; }
+
+        // TODO: List of transfer sources
+    }
 
 
     public class RecipientClaimViewModel : SelectListItem

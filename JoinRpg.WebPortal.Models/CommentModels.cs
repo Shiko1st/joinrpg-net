@@ -86,6 +86,17 @@ namespace JoinRpg.Web.Models
         Decline,
     }
 
+    public interface ICommentTextViewModel
+    {
+        string CommentText { get; set; }
+    }
+
+    public interface IAddCommentBaseViewModel : ICommentTextViewModel
+    {
+        int ProjectId { get; set; }
+        int CommentDiscussionId { get; set; }
+    }
+
     public class CommentTextViewModel
     {
 

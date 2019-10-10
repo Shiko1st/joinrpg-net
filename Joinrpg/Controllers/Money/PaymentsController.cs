@@ -114,28 +114,18 @@ namespace JoinRpg.Web.Controllers.Money
                 });
         }
 
-        [HttpGet, HttpPost]
+        [HttpGet]
         [Authorize]
         [ActionName(nameof(ClaimPaymentSuccess))]
         public async Task<ActionResult> ClaimPaymentSuccessGet(int projectId, int claimId, string orderId)
             => await HandleClaimPaymentRedirect(projectId, claimId, orderId, "",
                 "Ошибка обработки успешного платежа");
-        
-
-        [HttpPost]
-        [Authorize]
-        [ActionName(nameof(ClaimPaymentSuccess))]
-        public async Task<ActionResult> ClaimPaymentSuccessGet(int projectId, int claimId, string orderId)
-            => await HandleClaimPaymentRedirect(projectId, claimId, orderId, "",
-                "Ошибка обработки успешного платежа");
-        
 
         [HttpPost]
         [Authorize]
         public async Task<ActionResult> ClaimPaymentSuccess(int projectId, int claimId, string orderId)
             => await HandleClaimPaymentRedirect(projectId, claimId, orderId, "",
                 "Ошибка обработки успешного платежа");
-
 
         [HttpGet]
         [Authorize]
