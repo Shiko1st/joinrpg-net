@@ -20,6 +20,24 @@ namespace PscbApi
         public PscbApiExceptionBase(string message) : base(message) { }
     }
 
+    /// <summary>
+    /// Raised when api configuration is wrong
+    /// </summary>
+    public class PscbApiConfigurationException : PscbApiExceptionBase
+    {
+        public string ParameterName { get; }
+
+        public PscbApiConfigurationException() { }
+
+        public PscbApiConfigurationException(string message) : base(message) { }
+
+        public PscbApiConfigurationException(string parameterName, string message)
+            : base($"{parameterName}: {message}")
+        {
+            ParameterName = parameterName;
+        }
+    }
+
 
     /// <summary>
     /// Request exception

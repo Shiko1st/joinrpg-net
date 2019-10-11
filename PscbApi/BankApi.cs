@@ -47,6 +47,10 @@ namespace PscbApi
         public BankApi(ApiConfiguration configuration)
         {
             _configuration = configuration;
+            if (string.IsNullOrWhiteSpace(ActualApiKey))
+                throw new PscbApiConfigurationException("ApiKey", "Api key required");
+            if (string.IsNullOrWhiteSpace(_configuration.MerchantId))
+                throw new PscbApiConfigurationException(nameof(_configuration.MerchantId), "Merchant identification required");
             _keyAsUtf8 = ActualApiKey.ToUtf8Bytes();
         }
 
