@@ -180,4 +180,6 @@ internal class UserInfoRepository(MyDbContext ctx) : IUserRepository, IUserSubsc
                 )
         ).ToList();
     }
+
+    public Task<UserNotificationInfoDto[]> GetUsersNotificationInfo(UserIdentification[] userIds) => throw new NotImplementedException();
 }
