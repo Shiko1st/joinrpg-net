@@ -6,4 +6,5 @@ public class AddressedNotificationMessageDto : NotificationMessageBaseDto
 {
     public required NotificationId Id { get; init; }
     public required NotificationChannelDto Channel { get; init; }
+    public required int Attempts { get; init; }
 }
