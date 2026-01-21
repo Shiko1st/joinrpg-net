@@ -11,5 +11,9 @@ public static class HtmlSanitizeFacade
     /// Sanitize all Html, leaving safe subset
     /// </summary>
     /// <returns>We are returning <see cref="MarkupString"/> to signal "no need to sanitize this again"</returns>
-    public static MarkupString SanitizeHtml(this string str) => new MarkupString(HtmlSanitizers.Simple.Sanitize(str));
+    public static MarkupString SanitizeHtml(this string str)
+    {
+        using var sanitizer = HtmlSanitizers.GetSimple();
+        return new MarkupString(sanitizer.Sanitize(str));
+    }
 }

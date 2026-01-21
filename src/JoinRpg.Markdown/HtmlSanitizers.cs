@@ -3,13 +3,17 @@ using Vereyon.Web;
 
 namespace JoinRpg.Markdown;
 
-internal static class HtmlSanitizers
+internal static partial class HtmlSanitizers
 {
-    private static readonly Lazy<HtmlSanitizer> SimpleHtml5Sanitizer = new(InitHtml5Sanitizer);
-    public static IHtmlSanitizer Simple => SimpleHtml5Sanitizer.Value;
+    private static HtmlSanitizerPool SimpleSanitizers { get; } = new (InitHtml5Sanitizer);
 
-    private static readonly Lazy<HtmlSanitizer> RemoveAllHtmlSanitizer = new(InitRemoveSanitizer);
-    public static IHtmlSanitizer RemoveAll => RemoveAllHtmlSanitizer.Value;
+    /// <returns>An instance of <see cref="IDisposableHtmlSanitizer"/> which has to be disposed right after use.</returns>
+    public static IDisposableHtmlSanitizer GetSimple() => SimpleSanitizers.Get();
+
+    private static HtmlSanitizerPool RemoveAllSanitizers { get; } = new(InitRemoveSanitizer);
+
+    /// <returns>An instance of <see cref="IDisposableHtmlSanitizer"/> which has to be disposed right after use.</returns>
+    public static IDisposableHtmlSanitizer GetRemoveAll() => RemoveAllSanitizers.Get();
 
     private static HtmlSanitizer InitRemoveSanitizer()
     {
